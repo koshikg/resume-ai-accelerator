@@ -49,5 +49,15 @@ You are an AI agent tasked with automating and enhancing resume processing. Plea
 
   ---
 
+## This template on Overleaf
+
+<a href="https://www.overleaf.com/latex/templates"><img alt="Overleaf" src="https://img.shields.io/badge/Overleaf-47A141.svg?style=for-the-badge&logo=Overleaf&logoColor=white"/></a>
+
+Also, if you have a premium subscription to Overleaf, you can use Overleaf's GitHub integration to push changes to your GitHub repo directly from Overleaf.
+
+## Compiling the CV on your local computer
+- type `make` in the `root` directory to produce file `cv.pdf`
+- you can optionally type `make clean` or `make distclean` to remove intermediate files
+
 
 By following these steps, ResumeAI Accelerator helps you automate extraction, cleaning, and AI-powered enhancement of your resume for job applications or professional use.

@@ -1,0 +1,16 @@
+{
+    "name": "ResumeAI Accelerator DevContainer",
+    "image": "mcr.microsoft.com/devcontainers/python:3.11",
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y texlive-full && pip install python-docx docx2txt",
+    "customizations": {
+        "vscode": {
+            "settings": {},
+            "extensions": [
+                "ms-python.python",
+                "ms-toolsai.jupyter",
+                "James-Yu.latex-workshop",
+                "esbenp.prettier-vscode"
+            ]
+        }
+    }
+}
