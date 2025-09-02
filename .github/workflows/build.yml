@@ -32,7 +32,7 @@ jobs:
           # Explicit .tex (action expects actual .tex filenames)
           root_file: ${{ env.FILE }}.tex
           working_directory: .
-          args: -interaction=nonstopmode -halt-on-error
+          args: -interaction=nonstopmode -halt-on-error -pdf
 
       - name: Verify build output
         run: |
