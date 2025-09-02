@@ -11,11 +11,11 @@
 \documentclass[letterpaper,10pt]{article}
 \usepackage{latexsym}
 \usepackage[empty]{fullpage}
-\usepackage{titlesec}
 \usepackage{marvosym}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{verbatim}
 \usepackage{enumitem}
+\usepackage{multicol}
 \usepackage[hidelinks]{hyperref}
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
@@ -35,12 +35,12 @@
 \raggedbottom
 \raggedright
 \setlength{\tabcolsep}{0in}
-\titleformat{\section}{\vspace{-5pt}\scshape\raggedright\large}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+% (Removed explicit titleformat for \section; we'll use custom \ResumeSection macro instead)
 \pdfgentounicode=1
 \definecolor{lightyellow}{cmyk}{0.00, 0.05, 0.20, 0.00}
 \sethlcolor{lightyellow}
 
-%--------------- Custom commands (unchanged) -----------------------
+%--------------- Custom commands & typography -----------------------
 \newcommand{\sectionspace}{\vspace{-20pt}}
 \newcommand{\subheadingtitlevspace}{\vspace{-3pt}}
 \newcommand{\resumeItem}[1]{\item{{#1 \vspace{-4pt}}}}
@@ -54,16 +54,27 @@
 \newcommand{\resumeItemListStart}{\begin{itemize}}
 \newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-8pt}}
 
+% Name & Section styling macros (consistent typography)
+\newcommand{\ResumeName}[1]{\textbf{\fontsize{18pt}{20pt}\selectfont #1}}
+% Section heading macro
+\newcommand{\ResumeSection}[1]{\vspace{4pt}\par{\fontsize{11pt}{13pt}\selectfont \MakeUppercase{#1}}\vspace{1pt}\hrule height 0.6pt}
+% Unified gap after each section content (tweak here for global spacing)
+% No extra gap after section content (can be re-enabled if needed)
+\newcommand{\SectionContentGap}{}
+
+% Reduce itemize left margin globally for compactness (override default if desired)
+\setlist[itemize]{leftmargin=0.15in}
+
 \begin{document}
 
 % -------------------------------------
 % HEADER (Parameterized)
 % -------------------------------------
 \begin{flushleft}
-    \textbf{\large {{NAME}}} \\
+    \ResumeName{{{NAME}}} \\
     \textit{{{LOCATION}}} $|$ 
     \textit{{{PHONE}}} $|$  
-    \href{mailto:{{EMAIL}}}{\textit{@email}} $|$
+    \href{mailto:{{EMAIL}}}{\textit{{{EMAIL}}}} $|$
     \href{ {{WEBSITE_URL}} }{\textit{@website}} $|$
     \href{ {{LINKEDIN_URL}} }{\textit{@linkedin}} $|$
     \href{ {{GITHUB_URL}} }{\textit{@github}}
@@ -73,29 +84,33 @@
 % -------------------------------------
 % PROFESSIONAL SUMMARY
 % -------------------------------------
-\section{Professional Summary}
+\ResumeSection{Professional Summary}
 \vspace{-3pt}
 \begin{itemize}[leftmargin=0.15in, label={}]
     % BEGIN_PROFESSIONAL_SUMMARY
     {{PROFESSIONAL_SUMMARY}}
     % END_PROFESSIONAL_SUMMARY
 \end{itemize}
-\sectionspace
+\SectionContentGap
 
 % -------------------------------------
 % CERTIFICATIONS
 % -------------------------------------
-\section{Certifications}
-\resumeSubHeadingListStart
+\ResumeSection{Certifications}
+% Two-column compact list
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=0.1in, itemsep=1pt, parsep=0pt, topsep=0pt]
 % BEGIN_CERTIFICATIONS
 {{CERTIFICATIONS_BLOCK}}
 % END_CERTIFICATIONS
-\resumeSubHeadingListEnd
+\end{itemize}
+\end{multicols}
+\SectionContentGap
 
 % -------------------------------------
 % TECHNICAL SKILLS
 % -------------------------------------
-\section{Technical Skills}
+\ResumeSection{Technical Skills}
 \subheadingtitlevspace
 \begin{itemize}[leftmargin=0.15in, label={}]
   \item{\titleItem{Languages}{: {{SKILLS_LANGUAGES}}} \\
@@ -104,32 +119,37 @@
         \titleItem{Cloud and Security Tools}{: {{SKILLS_CLOUD_SECURITY}}} \\
         \titleItem{Others}{: {{SKILLS_OTHERS}}}}
 \end{itemize}
-\sectionspace
+\SectionContentGap
 
 % -------------------------------------
 % EXPERIENCE
 % -------------------------------------
-\section{Experience}
+\ResumeSection{Experience}
 \resumeSubHeadingListStart
 % BEGIN_EXPERIENCE
 {{EXPERIENCE_BLOCK}}
 % END_EXPERIENCE
 \resumeSubHeadingListEnd
+\SectionContentGap
 
 % -------------------------------------
 % EARLIER ROLES
 % -------------------------------------
-\section{Earlier Roles}
-\resumeSubHeadingListStart
+\ResumeSection{Earlier Roles}
+% Two-column compact list for earlier roles
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=0.1in, itemsep=2pt, parsep=0pt, topsep=0pt]
 % BEGIN_EARLIER_ROLES
 {{EARLIER_ROLES_BLOCK}}
 % END_EARLIER_ROLES
-\resumeSubHeadingListEnd
+\end{itemize}
+\end{multicols}
+\SectionContentGap
 
 % -------------------------------------
 % EDUCATION
 % -------------------------------------
-\section{Education}
+\ResumeSection{Education}
 \resumeSubHeadingListStart
 % BEGIN_EDUCATION
 {{EDUCATION_BLOCK}}

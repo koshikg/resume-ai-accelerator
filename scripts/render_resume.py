@@ -132,10 +132,10 @@ def build_blocks(parsed: dict) -> dict:
     else:
         blocks['PROFESSIONAL_SUMMARY'] = '\\item{ }'
 
-    # Certifications block
+    # Certifications block (simple items for potential multi-column layout)
     cert_lines = []
     for cert in parsed['certifications']:
-        cert_lines.append(f"\\resumeProjectHeading{{\\titleItem{{{escape_latex(cert)}}}}}{{}}")
+        cert_lines.append(f"\\item {{{escape_latex(cert)}}}")
     blocks['CERTIFICATIONS_BLOCK'] = '\n'.join(cert_lines) if cert_lines else '% No certifications'
 
     # Skills mapping
@@ -163,17 +163,16 @@ def build_blocks(parsed: dict) -> dict:
             exp_lines.append('\\resumeItemListEnd')
     blocks['EXPERIENCE_BLOCK'] = '\n'.join(exp_lines) if exp_lines else '% No experience roles parsed'
 
-    # Earlier roles block (multiple companies)
-    er_lines = []
+    # Earlier roles block (compact two-column friendly: company header + roles inline)
+    er_items = []
     for employer in parsed['earlier_roles']:
-        header = f"{employer['company']} ({employer['years']})"
-        er_lines.append(f"\\resumeProjectHeading{{\\titleItem{{{escape_latex(header)}}}}}{{}}")
-        if employer['titles']:
-            er_lines.append('\\resumeItemListStart')
-            for title in employer['titles']:
-                er_lines.append(f"\\resumeItem{{{escape_latex(title)}}}")
-            er_lines.append('\\resumeItemListEnd')
-    blocks['EARLIER_ROLES_BLOCK'] = '\n'.join(er_lines) if er_lines else '% No earlier roles'
+        header = f"{employer['company']} ({employer['years']})" if employer['years'] else employer['company']
+        roles_inline = '; '.join(employer['titles']) if employer['titles'] else ''
+        content_parts = [f"\\titleItem{{{escape_latex(header)}}}"]
+        if roles_inline:
+            content_parts.append(f"{escape_latex(roles_inline)}")
+        er_items.append(f"\\item {{ {' \\newline '.join(content_parts)} }}")
+    blocks['EARLIER_ROLES_BLOCK'] = '\n'.join(er_items) if er_items else '% No earlier roles'
 
     # Education block
     edu_lines = []
