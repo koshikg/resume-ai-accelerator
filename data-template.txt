@@ -1,0 +1,70 @@
+# ===== HEADER FIELDS (key=value) =====
+# Required core identity & contact fields (one per line)
+NAME=<<FULL_NAME>>
+TITLE=<<PRIMARY_ROLE_TITLE>>
+LOCATION=<<CITY_REGION_COUNTRY>>
+PHONE=<<PHONE_NUMBER>>
+EMAIL=<<EMAIL_ADDRESS>>
+LINKEDIN=<<LINKEDIN_URL>>
+GITHUB=<<GITHUB_URL>>
+WEBSITE=<<PERSONAL_SITE_URL>>
+RESIDENCY=<<WORK_RIGHTS_OR_RESIDENCY>>
+CERTS_INLINE=<<SHORT_INLINE_CERT_LIST_EG_AZ-400,_AZ-500,_AZ-305>>
+
+# ===== PROFESSIONAL SUMMARY =====
+PROFESSIONAL SUMMARY
+<<2-3_SENTENCE_IMPACT_SUMMARY>>
+
+# ===== CERTIFICATIONS (detailed list; optional if CERTS_INLINE sufficient) =====
+CERTIFICATIONS
+- <<CERTIFICATION_NAME_1>>
+- <<CERTIFICATION_NAME_2>>
+- <<CERTIFICATION_NAME_3>>
+
+# ===== TECHNICAL SKILLS =====
+# Each category exactly once; comma-separated values
+TECHNICAL SKILLS
+LANGUAGES: <<LIST_OF_LANGUAGES>>
+FRAMEWORKS: <<LIST_OF_FRAMEWORKS>>
+DEVOPS TOOLS: <<LIST_OF_DEVOPS_TOOLS>>
+CLOUD AND SECURITY TOOLS: <<LIST_OF_CLOUD_SECURITY_TOOLS>>
+OTHERS: <<LIST_OF_OTHER_RELEVANT_SKILLS>>
+
+# ===== EXPERIENCE =====
+# Repeat ROLE blocks in reverse chronological order
+# ROLE line format: ROLE: <Title> | <Company> | <Start YYYY or Mon YYYY> -- <End YYYY or Present>
+EXPERIENCE
+ROLE: <<ROLE_TITLE_1>> | <<COMPANY_1>> | <<START_DATE_1>> -- <<END_DATE_1>>
+- <<ACHIEVEMENT_OR_IMPACT_1>>
+- <<ACHIEVEMENT_OR_IMPACT_2>>
+- <<ACHIEVEMENT_OR_IMPACT_3>>
+
+ROLE: <<ROLE_TITLE_2>> | <<COMPANY_2>> | <<START_DATE_2>> -- <<END_DATE_2>>
+- <<ACHIEVEMENT_OR_IMPACT_1>>
+- <<ACHIEVEMENT_OR_IMPACT_2>>
+
+ROLE: <<ROLE_TITLE_3>> | <<COMPANY_3>> | <<START_DATE_3>> -- <<END_DATE_3>>
+- <<ACHIEVEMENT_OR_IMPACT_1>>
+
+# (Add more ROLE blocks as needed above BEFORE Earlier Roles)
+
+# ===== EARLIER ROLES =====
+# Condensed lineage; multiple companies separated by semicolons
+EARLIER ROLES
+<<COMPANY_A: ROLE_A1,_ROLE_A2,_ROLE_A3 (YYYY--YYYY); COMPANY_B: ROLE_B1,_ROLE_B2 (YYYY--YYYY)>>
+- <<OPTIONAL_HIGHLIGHT_BULLET_1>>
+- <<OPTIONAL_HIGHLIGHT_BULLET_2>>
+
+# ===== EDUCATION =====
+# One or more lines; format: University | Degree / Major | Honors (optional) | Years
+EDUCATION
+<<UNIVERSITY_NAME>> | <<DEGREE_AND_MAJOR>> | <<HONORS_OR_DISTINCTION>> | <<STARTYEAR--ENDYEAR>>
+
+# ===== NOTES FOR AGENT (remove or ignore in final rendering) =====
+# - Preserve ROLE order newest to oldest.
+# - Use action verbs; quantify metrics (%, $, time, scale) where possible.
+# - If a section has no data, leave header + placeholder (do not delete).
+# - Do not insert LaTeX escaping here; escaping occurs during transformation.
+# - Keep placeholders with << >> if unknown; transformer can flag them.
+
+#
