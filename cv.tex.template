@@ -1,0 +1,139 @@
+%------------------------------------------------------------------------------
+% Resume Template (Parameterized)
+% Source derived from original cv.tex
+% Placeholders use double curly braces {{PLACEHOLDER}} to be filled by pipeline.
+% Sections with repeating content use BLOCK markers:
+%   % BEGIN_<BLOCK_NAME>
+%   {{BLOCK_NAME}}
+%   % END_<BLOCK_NAME>
+%------------------------------------------------------------------------------
+
+\documentclass[letterpaper,10pt]{article}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\usepackage{soul}
+\input{glyphtounicode}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[default]{sourcesanspro}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+\titleformat{\section}{\vspace{-5pt}\scshape\raggedright\large}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+\pdfgentounicode=1
+\definecolor{lightyellow}{cmyk}{0.00, 0.05, 0.20, 0.00}
+\sethlcolor{lightyellow}
+
+%--------------- Custom commands (unchanged) -----------------------
+\newcommand{\sectionspace}{\vspace{-20pt}}
+\newcommand{\subheadingtitlevspace}{\vspace{-3pt}}
+\newcommand{\resumeItem}[1]{\item{{#1 \vspace{-4pt}}}}
+\newcommand{\titleItem}[1]{\textbf{#1}}
+\newcommand{\highlight}[1]{\textsl{\textbf{#1}}}
+\newcommand{\resumeSubheading}[4]{\item\begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}l@{}l}{#1} & \titleItem{#3} | {#2} & \textit{#4}\\\end{tabular*}\vspace{-10pt}}
+\newcommand{\resumeSubSubheading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}\textit{#1} & \textit{#2} \\\end{tabular*}\vspace{-2pt}}
+\newcommand{\resumeProjectHeading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}#1 & \textit{ #2} \\\end{tabular*}\vspace{-9pt}}
+\newcommand{\resumeSubHeadingListStart}{\subheadingtitlevspace\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-8pt}}
+
+\begin{document}
+
+% -------------------------------------
+% HEADER (Parameterized)
+% -------------------------------------
+\begin{flushleft}
+    \textbf{\large {{NAME}}} \\
+    \textit{{{LOCATION}}} $|$ 
+    \textit{{{PHONE}}} $|$  
+    \href{mailto:{{EMAIL}}}{\textit{@email}} $|$
+    \href{ {{WEBSITE_URL}} }{\textit{@website}} $|$
+    \href{ {{LINKEDIN_URL}} }{\textit{@linkedin}} $|$
+    \href{ {{GITHUB_URL}} }{\textit{@github}}
+    \vspace{-8pt}
+\end{flushleft}
+
+% -------------------------------------
+% PROFESSIONAL SUMMARY
+% -------------------------------------
+\section{Professional Summary}
+\vspace{-3pt}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    % BEGIN_PROFESSIONAL_SUMMARY
+    {{PROFESSIONAL_SUMMARY}}
+    % END_PROFESSIONAL_SUMMARY
+\end{itemize}
+\sectionspace
+
+% -------------------------------------
+% CERTIFICATIONS
+% -------------------------------------
+\section{Certifications}
+\resumeSubHeadingListStart
+% BEGIN_CERTIFICATIONS
+{{CERTIFICATIONS_BLOCK}}
+% END_CERTIFICATIONS
+\resumeSubHeadingListEnd
+
+% -------------------------------------
+% TECHNICAL SKILLS
+% -------------------------------------
+\section{Technical Skills}
+\subheadingtitlevspace
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \item{\titleItem{Languages}{: {{SKILLS_LANGUAGES}}} \\
+        \titleItem{Frameworks}{: {{SKILLS_FRAMEWORKS}}} \\
+        \titleItem{DevOps and API Tools}{: {{SKILLS_DEVOPS}}} \\
+        \titleItem{Cloud and Security Tools}{: {{SKILLS_CLOUD_SECURITY}}} \\
+        \titleItem{Others}{: {{SKILLS_OTHERS}}}}
+\end{itemize}
+\sectionspace
+
+% -------------------------------------
+% EXPERIENCE
+% -------------------------------------
+\section{Experience}
+\resumeSubHeadingListStart
+% BEGIN_EXPERIENCE
+{{EXPERIENCE_BLOCK}}
+% END_EXPERIENCE
+\resumeSubHeadingListEnd
+
+% -------------------------------------
+% EARLIER ROLES
+% -------------------------------------
+\section{Earlier Roles}
+\resumeSubHeadingListStart
+% BEGIN_EARLIER_ROLES
+{{EARLIER_ROLES_BLOCK}}
+% END_EARLIER_ROLES
+\resumeSubHeadingListEnd
+
+% -------------------------------------
+% EDUCATION
+% -------------------------------------
+\section{Education}
+\resumeSubHeadingListStart
+% BEGIN_EDUCATION
+{{EDUCATION_BLOCK}}
+% END_EDUCATION
+\resumeSubHeadingListEnd
+
+\end{document}

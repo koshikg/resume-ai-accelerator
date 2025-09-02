@@ -55,6 +55,11 @@ You are an AI agent tasked with automating and enhancing resume processing. Plea
 
 Also, if you have a premium subscription to Overleaf, you can use Overleaf's GitHub integration to push changes to your GitHub repo directly from Overleaf.
 
+## How to populate template with your data
+Use LLM to generate `data.txt` file.
+Execute below script to generate the tex file.
+`scripts/render_resume.py --data "output/Resume - Kaushik Gayal_data.txt" --output cv.generated.tex`
+
 ## Compiling the CV on your local computer
 - type `make` in the `root` directory to produce file `cv.pdf`
 - you can optionally type `make clean` or `make distclean` to remove intermediate files
