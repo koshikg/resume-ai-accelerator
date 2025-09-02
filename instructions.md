@@ -29,11 +29,7 @@ resume/
   - This will create a file named `<resume>_full.txt` in the `output/` directory containing all extractable text, including paragraphs, tables, and text boxes.
 
 ## Step 1.5: Initialize Taskmaster and LLM Workflow
-1. Prompt the LLM to:
-  - Read the `instructions.md` file.
-  - Create a `taskmaster.md` file in the root directory, listing all required tasks and their statuses.
-  - Follow the tasks in `taskmaster.md` one by one, working in small, manageable chunks and updating the status of each task as it progresses.
-  - Always preserve the orginal content of full.txt and cleaned.txt. Any modifications to cleaned.txt should be saved into a new file with versioning as v1, v2 etc;
+1. Prompt the LLM using `prompt.md`
 
 ## Step 2: Clean and Deduplicate the Extracted Text
 1. Run the cleaning script from the `scripts/` folder to remove redundant information and improve readability:
@@ -42,13 +38,16 @@ resume/
   ```
   - This will generate `<resume>_cleaned.txt` in the `output/` directory, a more readable and concise version of your resume.
 
-## Step 3: (Optional) Further Enhancement with LLMs
-- Pass the cleaned text file to an LLM for:
+## Step 3: Use template to inject data from output in step 2
+- Read the `data-template.txt` file in the root directory, to determine what details needs to be extracted from step 2 output.
+- Create a new data file using the template in `data-template.txt` and insert all the required data that is available from output in step 2.
+
+## Step 4: (Optional) Further Enhancement with LLMs
+- Pass the new data text file to an LLM for:
   - Grammar and style improvements
   - Formatting suggestions
   - Content enhancement (e.g., quantifying achievements, improving clarity)  
-- Provide clear instructions to the LLM about the desired improvements.
-
+- Provide clear instructions to the LLM about the desired improvements. Do not change the original content drastically.
 
 ## Task Tracking and Status Updates (taskmaster.md file)
 
