@@ -106,6 +106,7 @@ jobs:
 
       - name: Upload PDF artifact (for PR review)
         uses: actions/upload-artifact@v4
+        if: github.event_name == 'pull_request'
         with:
           name: ${{ env.PDF_NAME }}
           path: ${{ env.OUT_DIR }}/${{ env.PDF_NAME }}
