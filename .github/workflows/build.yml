@@ -29,9 +29,27 @@ jobs:
       - name: Build PDF (LaTeX)
         uses: dante-ev/latex-action@latest
         with:
+          # Explicit .tex (action expects actual .tex filenames)
           root_file: ${{ env.FILE }}.tex
           working_directory: .
           args: -interaction=nonstopmode -halt-on-error
+
+      - name: Verify build output
+        run: |
+          echo "Listing repository root after LaTeX build";
+          ls -al .
+          if [ ! -f "${FILE}.pdf" ]; then
+            echo "::error::Expected ${FILE}.pdf not found. Showing first 200 lines of any .log file for debugging.";
+            LOGFILE=$(ls -1 *.log 2>/dev/null | head -n1 || true)
+            if [ -n "$LOGFILE" ]; then
+              echo "--- Log Snippet ($LOGFILE) ---";
+              sed -n '1,200p' "$LOGFILE";
+              echo "--- End Log Snippet ---";
+            else
+              echo "No .log file produced.";
+            fi
+            exit 1
+          fi
 
       - name: Prepare site files
         run: |
