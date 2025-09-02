@@ -1,0 +1,15 @@
+# CODEOWNERS assigns code reviewers automatically based on file path patterns.
+# Docs: https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Repository-wide owner (all files):
+* @koshikg
+
+# Example of how to narrow in future (uncomment / edit as needed):
+# docs/** @koshikg
+# scripts/** @koshikg
+# latex/** @koshikg
+
+# Notes:
+# - Place this file in the .github/ directory (current location) or at repo root.
+# - To enforce reviews, enable "Require review from Code Owners" in branch protection for main.
+# - Multiple owners can be space-separated; teams use @org/team-name syntax.

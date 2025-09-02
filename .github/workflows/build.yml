@@ -1,0 +1,123 @@
+name: build-and-deploy-cv
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      FILE: cv          # LaTeX source without .tex
+      PDF_NAME: KaushikGayal.pdf
+      OUT_DIR: public   # directory to publish
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build PDF (LaTeX)
+        uses: dante-ev/latex-action@latest
+        with:
+          # Explicit .tex (action expects actual .tex filenames)
+          root_file: ${{ env.FILE }}.tex
+          working_directory: .
+          args: -interaction=nonstopmode -halt-on-error
+
+      - name: Verify build output
+        run: |
+          echo "Listing repository root after LaTeX build";
+          ls -al .
+          if [ ! -f "${FILE}.pdf" ]; then
+            echo "::error::Expected ${FILE}.pdf not found. Showing first 200 lines of any .log file for debugging.";
+            LOGFILE=$(ls -1 *.log 2>/dev/null | head -n1 || true)
+            if [ -n "$LOGFILE" ]; then
+              echo "--- Log Snippet ($LOGFILE) ---";
+              sed -n '1,200p' "$LOGFILE";
+              echo "--- End Log Snippet ---";
+            else
+              echo "No .log file produced.";
+            fi
+            exit 1
+          fi
+
+      - name: Prepare site files
+        run: |
+          set -euo pipefail
+          mkdir -p "${OUT_DIR}"
+          mv "${FILE}.pdf" "${OUT_DIR}/${PDF_NAME}"
+          # Dynamically generate index.html (ignore any existing repo copy)
+          cat > "${OUT_DIR}/index.html" <<EOF
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width,initial-scale=1" />
+            <title>Kaushik Gayal – CV</title>
+            <meta name="description" content="Curriculum Vitae - Kaushik Gayal" />
+            <link rel="canonical" href="https://$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]').github.io/" />
+            <meta property="og:title" content="Kaushik Gayal – CV" />
+            <meta property="og:description" content="Download the latest CV (PDF)." />
+            <meta property="og:type" content="website" />
+            <meta property="og:image" content="https://dummyimage.com/600x314/000/fff&text=CV" />
+            <style>
+              body { font-family: system-ui, Arial, sans-serif; margin:40px; text-align:center; }
+              a.btn { display:inline-block; margin-top:24px; padding:12px 24px; background:#222; color:#fff; text-decoration:none; border-radius:4px; }
+              a.btn:hover { background:#444; }
+              .meta { color:#555; font-size:14px; margin-top:16px; }
+            </style>
+          </head>
+          <body>
+            <h1>Curriculum Vitae</h1>
+            <p>Redirecting to the latest PDF… If it doesn't open automatically, use the button below.</p>
+            <p><a class="btn" href="${PDF_NAME}" rel="noopener">Open PDF</a></p>
+            <div class="meta">File: ${PDF_NAME}</div>
+            <script>
+              (function(){ window.location.replace('${PDF_NAME}'); })();
+            </script>
+            <noscript>
+              <p>JavaScript disabled – use the button above to open the PDF.</p>
+            </noscript>
+          </body>
+          </html>
+          EOF
+          
+          # Optional CNAME handling: add one if a CNAME file exists in repo root
+          if [ -f CNAME ]; then cp CNAME "${OUT_DIR}/CNAME"; fi
+          # Manifest for potential dynamic clients
+          echo "{\"pdf\":\"${PDF_NAME}\"}" > "${OUT_DIR}/pdf-manifest.json"
+          ls -al ${OUT_DIR}
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.OUT_DIR }}
+
+      - name: Upload PDF artifact (for PR review)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PDF_NAME }}
+          path: ${{ env.OUT_DIR }}/${{ env.PDF_NAME }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
