@@ -20,7 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FILE: cv          # LaTeX source without .tex
-      PDF_NAME: KaushikGayal.pdf
+      CANDIDATE_NAME: "Kaushik Gayal"
+      PDF_NAME: "Kaushik_Gayal.pdf"
       OUT_DIR: public   # directory to publish
     steps:
       - name: Checkout
@@ -52,6 +53,7 @@ jobs:
           fi
 
       - name: Prepare site files
+        id: prepare
         run: |
           set -euo pipefail
           mkdir -p "${OUT_DIR}"
@@ -64,10 +66,10 @@ jobs:
             <meta charset="UTF-8" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width,initial-scale=1" />
-            <title>Kaushik Gayal – CV</title>
-            <meta name="description" content="Curriculum Vitae - Kaushik Gayal" />
+            <title>${CANDIDATE_NAME} – CV</title>
+            <meta name="description" content="Curriculum Vitae - ${CANDIDATE_NAME}" />
             <link rel="canonical" href="https://$(echo ${GITHUB_REPOSITORY} | tr '[:upper:]' '[:lower:]').github.io/" />
-            <meta property="og:title" content="Kaushik Gayal – CV" />
+            <meta property="og:title" content="${CANDIDATE_NAME} – CV" />
             <meta property="og:description" content="Download the latest CV (PDF)." />
             <meta property="og:type" content="website" />
             <meta property="og:image" content="https://dummyimage.com/600x314/000/fff&text=CV" />
@@ -101,6 +103,7 @@ jobs:
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
+        if: github.event_name == 'push'
         with:
           path: ${{ env.OUT_DIR }}
 
