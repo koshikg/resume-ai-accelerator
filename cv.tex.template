@@ -26,9 +26,13 @@
 \usepackage[margin=0.5in]{geometry}
 \usepackage[default]{sourcesanspro}
 
+% Subtle gray for footer attribution (watermark-like)
+\definecolor{footergray}{gray}{0.70}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyfoot{}
+% Footer note (single-page) showing generator attribution (right aligned, muted gray)
+\fancyfoot[R]{\scriptsize\textcolor{footergray}{Auto-generated via \href{https://github.com/koshikg/resume-ai-accelerator}{resume-ai-accelerator}}}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \urlstyle{same}
@@ -81,9 +85,9 @@
     \textit{{{LOCATION}}} $|$ 
     \textit{{{PHONE}}} $|$  
     \href{mailto:{{EMAIL}}}{\textit{{{EMAIL}}}} $|$
-    \href{ {{WEBSITE_URL}} }{\textit{@website}} $|$
-    \href{ {{LINKEDIN_URL}} }{\textit{@linkedin}} $|$
-    \href{ {{GITHUB_URL}} }{\textit{@github}}
+    \href{{{WEBSITE_URL}}}{\textit{{{WEBSITE_URL}}}} $|$
+    \href{{{LINKEDIN_URL}}}{\textit{@linkedin}} $|$
+    \href{{{GITHUB_URL}}}{\textit{@github}}
     \vspace{-2pt}
 \end{flushleft}
 
