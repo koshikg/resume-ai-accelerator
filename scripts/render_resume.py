@@ -22,7 +22,7 @@ def escape_latex(text: str) -> str:
 SECTION_HEADERS = {
     'PROFESSIONAL SUMMARY': 'summary',
     'CERTIFICATIONS': 'certifications',
-    'TECHNICAL SKILLS': 'skills',
+    'TECHNICAL SKILLS': 'skills',  # legacy keys still parsed but new block handled separately
     'EXPERIENCE': 'experience',
     'EARLIER ROLES': 'earlier_roles',
     'EDUCATION': 'education',
@@ -37,6 +37,7 @@ def parse_data_file(path: str) -> dict:
         'summary': [],
         'certifications': [],
         'skills': {},
+        'technical_skills_lines': [],  # raw lines for new consolidated skills categories
         'experience_roles': [],  # list of dicts: {title, company, start, end, bullets}
         'earlier_roles': [],     # list of dicts: {company, years, titles:[..]}
         'education_lines': [],
@@ -85,6 +86,9 @@ def parse_data_file(path: str) -> dict:
             if line.startswith('- '):
                 data['certifications'].append(line[2:].strip())
         elif current_section == 'skills':
+            # Preserve raw line for new TECHNICAL_SKILLS block injection
+            data['technical_skills_lines'].append(line)
+            # Also keep legacy parsing if colon list (for backward compatibility)
             if ':' in line:
                 k, v = line.split(':', 1)
                 data['skills'][k.strip().upper()] = [s.strip() for s in v.split(',') if s.strip()]
@@ -138,18 +142,7 @@ def build_blocks(parsed: dict) -> dict:
         cert_lines.append(f"\\item {{{escape_latex(cert)}}}")
     blocks['CERTIFICATIONS_BLOCK'] = '\n'.join(cert_lines) if cert_lines else '% No certifications'
 
-    # Skills mapping
-    def join_list(key):
-            vals = parsed['skills'].get(key, [])
-            if not vals:
-                return ''
-            return ', '.join(escape_latex(v) for v in vals)
-
-    blocks['SKILLS_LANGUAGES'] = join_list('LANGUAGES')
-    blocks['SKILLS_FRAMEWORKS'] = join_list('FRAMEWORKS')
-    blocks['SKILLS_DEVOPS'] = join_list('DEVOPS TOOLS') or join_list('DEVOPS TOOLS')
-    blocks['SKILLS_CLOUD_SECURITY'] = join_list('CLOUD AND SECURITY TOOLS')
-    blocks['SKILLS_OTHERS'] = join_list('OTHERS')
+    # Legacy SKILLS_* placeholders removed (template now uses consolidated TECHNICAL_SKILLS_BLOCK)
 
     # Experience block
     exp_lines = []
@@ -190,6 +183,26 @@ def build_blocks(parsed: dict) -> dict:
             continue
         edu_lines.append(f"\\resumeProjectHeading{{\\titleItem{{{escape_latex(line.strip())}}}}}{{}}")
     blocks['EDUCATION_BLOCK'] = '\n'.join(edu_lines) if edu_lines else '% No education entries'
+
+    # New consolidated TECHNICAL_SKILLS_BLOCK from technical_skills_lines
+    if parsed.get('technical_skills_lines'):
+        rows = []
+        for raw in parsed['technical_skills_lines']:
+            line = raw.strip()
+            if not line or line.upper() == 'TECHNICAL SKILLS':
+                continue
+            if ':' in line:
+                label, val = line.split(':', 1)
+                label = escape_latex(label.strip())
+                val = escape_latex(val.strip())
+                # Individual bulletless row
+                rows.append(f"  \\item{{\\textbf{{{label}:}} {val}}}")
+        if rows:
+            blocks['TECHNICAL_SKILLS_BLOCK'] = '\n'.join(rows)
+        else:
+            blocks['TECHNICAL_SKILLS_BLOCK'] = '  % No technical skills lines parsed'
+    else:
+        blocks['TECHNICAL_SKILLS_BLOCK'] = '  % No technical skills provided'
 
     return blocks
 

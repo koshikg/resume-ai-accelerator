@@ -84,20 +84,20 @@
     \href{ {{WEBSITE_URL}} }{\textit{@website}} $|$
     \href{ {{LINKEDIN_URL}} }{\textit{@linkedin}} $|$
     \href{ {{GITHUB_URL}} }{\textit{@github}}
-    \vspace{-8pt}
+    \vspace{-2pt}
 \end{flushleft}
 
 % -------------------------------------
 % PROFESSIONAL SUMMARY
 % -------------------------------------
 \ResumeSection{Professional Summary}
-\vspace{-4pt}
+\vspace{-2pt}
 \begin{itemize}[leftmargin=0.15in, label={}]
     % BEGIN_PROFESSIONAL_SUMMARY
     {{PROFESSIONAL_SUMMARY}}
     % END_PROFESSIONAL_SUMMARY
 \end{itemize}
-\SectionContentGap
+
 
 % -------------------------------------
 % CERTIFICATIONS
@@ -111,48 +111,42 @@
 % END_CERTIFICATIONS
 \end{itemize}
 \end{multicols}
-\SectionContentGap
+
 
 % -------------------------------------
 % TECHNICAL SKILLS
 % -------------------------------------
-\ResumeSection{Technical Skills}\vspace{-4pt}
-\subheadingtitlevspace
-\begin{itemize}[leftmargin=0.15in, label={}]
-  \item{\titleItem{Languages}{: {{SKILLS_LANGUAGES}}} \\
-        \titleItem{Frameworks}{: {{SKILLS_FRAMEWORKS}}} \\
-        \titleItem{DevOps and API Tools}{: {{SKILLS_DEVOPS}}} \\
-        \titleItem{Cloud and Security Tools}{: {{SKILLS_CLOUD_SECURITY}}} \\
-        \titleItem{Others}{: {{SKILLS_OTHERS}}}}
+\ResumeSection{Technical Skills}\vspace{2pt}
+\begin{itemize}[leftmargin=0.15in, label={}, itemsep=1pt, topsep=0pt, parsep=0pt]
+% BEGIN_TECHNICAL_SKILLS
+{{TECHNICAL_SKILLS_BLOCK}}
+% END_TECHNICAL_SKILLS
 \end{itemize}
-\SectionContentGap
 
 % -------------------------------------
 % EXPERIENCE
 % -------------------------------------
-\ResumeSection{Experience}\vspace{-4pt}
+\ResumeSection{Experience}\vspace{2pt}
 \resumeSubHeadingListStart
 % BEGIN_EXPERIENCE
 {{EXPERIENCE_BLOCK}}
 % END_EXPERIENCE
 \resumeSubHeadingListEnd
-\SectionContentGap
 
 % -------------------------------------
 % EARLIER ROLES
 % -------------------------------------
-\ResumeSection{Earlier Roles}\vspace{-4pt}
+\ResumeSection{Earlier Roles}\vspace{-2pt}
 \begin{itemize}[leftmargin=0.15in, label={}]
 % BEGIN_EARLIER_ROLES
 {{EARLIER_ROLES_BLOCK}}
 % END_EARLIER_ROLES
 \end{itemize}
-\SectionContentGap
 
 % -------------------------------------
 % EDUCATION
 % -------------------------------------
-\ResumeSection{Education}\vspace{-4pt}
+\ResumeSection{Education}\vspace{-2pt}
 \resumeSubHeadingListStart
 % BEGIN_EDUCATION
 {{EDUCATION_BLOCK}}

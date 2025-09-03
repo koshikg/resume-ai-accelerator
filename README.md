@@ -13,6 +13,8 @@ ResumeAI Accelerator is designed for:
 
 No advanced technical skills are required—if you can run a Python script, you can use ResumeAI Accelerator.
 
+Latest published resume: https://resume.gayal.dev
+
 ## Prerequisites
 
 **Recommended:** Use the provided Dev Container for a fully configured environment (see next section). All dependencies are pre-installed.
@@ -58,11 +60,14 @@ Also, if you have a premium subscription to Overleaf, you can use Overleaf's Git
 ## How to populate template with your data
 Use LLM to generate `data.txt` file.
 Execute below script to generate the tex file.
-`scripts/render_resume.py --data "output/Resume - Kaushik Gayal_data.txt" --output cv.generated.tex`
+`scripts/render_resume.py --data "output/Resume - Kaushik Gayal_data.txt" --output cv.tex`
 
 ## Compiling the CV on your local computer
 - type `make` in the `root` directory to produce file `cv.pdf`
 - you can optionally type `make clean` or `make distclean` to remove intermediate files
 
+## Compiling the CV on github
+- A PR to main branch will auto publish the pdf for review.
+- A commit on main will publish the PDF to github pages.
 
 By following these steps, ResumeAI Accelerator helps you automate extraction, cleaning, and AI-powered enhancement of your resume for job applications or professional use.
