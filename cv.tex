@@ -11,11 +11,11 @@
 \documentclass[letterpaper,10pt]{article}
 \usepackage{latexsym}
 \usepackage[empty]{fullpage}
-\usepackage{titlesec}
 \usepackage{marvosym}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{verbatim}
 \usepackage{enumitem}
+\usepackage{multicol}
 \usepackage[hidelinks]{hyperref}
 \usepackage{fancyhdr}
 \usepackage[english]{babel}
@@ -35,24 +35,41 @@
 \raggedbottom
 \raggedright
 \setlength{\tabcolsep}{0in}
-\titleformat{\section}{\vspace{-5pt}\scshape\raggedright\large}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+% (Removed explicit titleformat for \section; we'll use custom \ResumeSection macro instead)
 \pdfgentounicode=1
 \definecolor{lightyellow}{cmyk}{0.00, 0.05, 0.20, 0.00}
 \sethlcolor{lightyellow}
 
-%--------------- Custom commands (unchanged) -----------------------
+%--------------- Custom commands & typography -----------------------
+% Compact spacing ONLY used in Experience via these macros
+% Experience-specific compact list macros (to keep other sections unaffected)
+\newcommand{\expItem}[1]{\item{{#1 \vspace{-4pt}}}}
+\newcommand{\expItemListStart}{\begin{itemize}}
+\newcommand{\expItemListEnd}{\end{itemize}\vspace{-4pt}}
+\newcommand{\expProjectHeading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}#1 & \textit{ #2} \\ \end{tabular*}\vspace{-6pt}}
 \newcommand{\sectionspace}{\vspace{-20pt}}
 \newcommand{\subheadingtitlevspace}{\vspace{-3pt}}
-\newcommand{\resumeItem}[1]{\item{{#1 \vspace{-4pt}}}}
+\newcommand{\resumeItem}[1]{\item{{#1 \vspace{-4pt}}}} % bullet tightness
 \newcommand{\titleItem}[1]{\textbf{#1}}
 \newcommand{\highlight}[1]{\textsl{\textbf{#1}}}
-\newcommand{\resumeSubheading}[4]{\item\begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}l@{}l}{#1} & \titleItem{#3} | {#2} & \textit{#4}\\\end{tabular*}\vspace{-10pt}}
+\newcommand{\resumeSubheading}[4]{\item\begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}l@{}l}{#1} & \titleItem{#3} | {#2} & \textit{#4}\\\end{tabular*}\vspace{-8pt}}
 \newcommand{\resumeSubSubheading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}\textit{#1} & \textit{#2} \\\end{tabular*}\vspace{-2pt}}
-\newcommand{\resumeProjectHeading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}#1 & \textit{ #2} \\\end{tabular*}\vspace{-9pt}}
+\newcommand{\resumeProjectHeading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}#1 & \textit{ #2} \\\end{tabular*}\vspace{-6pt}}
 \newcommand{\resumeSubHeadingListStart}{\subheadingtitlevspace\begin{itemize}[leftmargin=0.15in, label={}]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
 \newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-8pt}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-4pt}}
+
+% Name & Section styling macros (consistent typography)
+\newcommand{\ResumeName}[1]{\textbf{\fontsize{18pt}{20pt}\selectfont #1}}
+% Section heading macro
+\newcommand{\ResumeSection}[1]{\par{\fontsize{11pt}{13pt}\selectfont \MakeUppercase{#1}}\vspace{1pt}\hrule height 0.6pt}
+% Unified gap after each section content (tweak here for global spacing)
+% No extra gap after section content (can be re-enabled if needed)
+\newcommand{\SectionContentGap}{}
+
+% Reduce itemize left margin globally for compactness (override default if desired)
+\setlist[itemize]{leftmargin=0.15in}
 
 \begin{document}
 
@@ -60,10 +77,10 @@
 % HEADER (Parameterized)
 % -------------------------------------
 \begin{flushleft}
-    \textbf{\large Kaushik Gayal} \\
+    \ResumeName{Kaushik Gayal} \\
     \textit{Melbourne, VIC, Australia} $|$ 
     \textit{+61 0431 989 030} $|$  
-    \href{mailto:gayal.kaushik@gmail.com}{\textit{@email}} $|$
+    \href{mailto:gayal.kaushik@gmail.com}{\textit{gayal.kaushik@gmail.com}} $|$
     \href{ https://kaushik.gayal.dev }{\textit{@website}} $|$
     \href{ https://www.linkedin.com/in/kaushik-gayal-02a57316/ }{\textit{@linkedin}} $|$
     \href{ https://github.com/koshikg }{\textit{@github}}
@@ -73,34 +90,38 @@
 % -------------------------------------
 % PROFESSIONAL SUMMARY
 % -------------------------------------
-\section{Professional Summary}
-\vspace{-3pt}
+\ResumeSection{Professional Summary}
+\vspace{-4pt}
 \begin{itemize}[leftmargin=0.15in, label={}]
     % BEGIN_PROFESSIONAL_SUMMARY
     \item{Technologist with 15+ years across cloud, DevOps, and application engineering guiding ideation, design, build, and deployment. Recognized for ownership, curiosity, and delivering modern Azure platform solutions, infrastructure automation, and secure, observable systems.}
     % END_PROFESSIONAL_SUMMARY
 \end{itemize}
-\sectionspace
+\SectionContentGap
 
 % -------------------------------------
 % CERTIFICATIONS
 % -------------------------------------
-\section{Certifications}
-\resumeSubHeadingListStart
+\ResumeSection{Certifications}\vspace{-8pt}
+% Two-column compact list
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=0.1in, itemsep=0pt, parsep=0pt, topsep=0pt]
 % BEGIN_CERTIFICATIONS
-\resumeProjectHeading{\titleItem{Certified Kubernetes Administrator}}{}
-\resumeProjectHeading{\titleItem{AZ-305 Designing Microsoft Azure Infrastructure Solutions}}{}
-\resumeProjectHeading{\titleItem{AZ-500 Microsoft Azure Security Technologies}}{}
-\resumeProjectHeading{\titleItem{AZ-400 Designing and Implementing Microsoft DevOps Solutions}}{}
-\resumeProjectHeading{\titleItem{ICP: IC Agile Certified Professional}}{}
-\resumeProjectHeading{\titleItem{NIDA Corporate Presentation Skills}}{}
+\item {Certified Kubernetes Administrator}
+\item {AZ-305 Designing Microsoft Azure Infrastructure Solutions}
+\item {AZ-500 Microsoft Azure Security Technologies}
+\item {Microsoft Certified DevOps Engineer Expert}
+\item {ICP: IC Agile Certified Professional}
+\item {NIDA Corporate Presentation Skills}
 % END_CERTIFICATIONS
-\resumeSubHeadingListEnd
+\end{itemize}
+\end{multicols}
+\SectionContentGap
 
 % -------------------------------------
 % TECHNICAL SKILLS
 % -------------------------------------
-\section{Technical Skills}
+\ResumeSection{Technical Skills}\vspace{-4pt}
 \subheadingtitlevspace
 \begin{itemize}[leftmargin=0.15in, label={}]
   \item{\titleItem{Languages}{: Python, C\#, PowerShell, Bash, SQL} \\
@@ -109,71 +130,64 @@
         \titleItem{Cloud and Security Tools}{: Azure (Functions, App Service, Container Apps, ACR, ACI, VNets, Private DNS, Azure Firewall, App Gateway, Load Balancer, Traffic Manager, Cosmos DB, Key Vault, Service Bus, Storage, Application Insights, Log Analytics, Sentinel, RBAC), Azure AD, Azure B2C} \\
         \titleItem{Others}{: Redis, Power BI, SSRS, Logic Apps, Autosys, Datadog, Dynatrace, AppDynamics}}
 \end{itemize}
-\sectionspace
+\SectionContentGap
 
 % -------------------------------------
 % EXPERIENCE
 % -------------------------------------
-\section{Experience}
+\ResumeSection{Experience}\vspace{-4pt}
 \resumeSubHeadingListStart
 % BEGIN_EXPERIENCE
-\resumeProjectHeading{\titleItem{Senior DevOps Consultant} $|$ \emph{Endava - RioTinto}}{Nov 2023 -- Present}
-\resumeItemListStart
-\resumeItem{DevSecOps implentation across 7 different projects.}
-\resumeItem{Consulted and implemented zero trust architecture as a template for internal projects.}
-\resumeItem{Modern CD using LaunchDarkly, ArgoCD, HELM.}
-\resumeItem{Ranorex UI testing implemention for windows applications.}
-\resumeItem{Implemented Agentic DevOps leveraging GitHub for source code and ADO for existing boards and pipelines.}
-\resumeItemListEnd
-\resumeProjectHeading{\titleItem{Senior Consultant} $|$ \emph{Contino (Cognizant Servian) - BHP}}{Mar 2022 -- Nov 2023}
-\resumeItemListStart
-\resumeItem{Led internal Squad 0 improvements and best practice adoption.}
-\resumeItem{Directed 7-engineer team delivering platform and customer enhancements.}
-\resumeItem{Planned and delivered Azure Landing Zone using CAF Terraform modules.}
-\resumeItem{Executed license migration project saving \textasciitilde{}\$130K.}
-\resumeItem{Automated large-scale GitLab SaaS repo migration with Python.}
-\resumeItemListEnd
-\resumeProjectHeading{\titleItem{Senior DevOps Engineer} $|$ \emph{Guild Group}}{Feb 2020 -- Mar 2022}
-\resumeItemListStart
-\resumeItem{Established DevOps processes and CI/CD automation with Terraform \& Azure DevOps.}
-\resumeItem{Automated Guidewire environment provisioning and DR infrastructure.}
-\resumeItem{Implemented observability with Datadog + App Insights; integrated alerting.}
-\resumeItem{Drove infrastructure automation for production and DR workloads.}
-\resumeItem{Built dashboards and agile workflows (Azure Boards \& JIRA).}
-\resumeItemListEnd
-\resumeProjectHeading{\titleItem{Azure Developer} $|$ \emph{Guild Group}}{Aug 2018 -- Feb 2020}
-\resumeItemListStart
-\resumeItem{Developed and maintained SuperSuper microservices (Functions, App Services, Service Bus, Storage, Cosmos DB, B2C).}
-\resumeItem{Implemented cost optimization and security hardening across subscriptions.}
-\resumeItem{Created admin tooling (ASP.NET MVC) and automation with Logic Apps/Teams.}
-\resumeItemListEnd
+\expProjectHeading{\titleItem{Senior DevOps Consultant} $|$ \emph{Endava - RioTinto}}{Nov 2023 -- Present}
+\expItemListStart
+\expItem{DevSecOps implentation across 7 different projects.}
+\expItem{Consulted and implemented zero trust architecture as a template for internal projects.}
+\expItem{Modern CD using LaunchDarkly, ArgoCD, HELM.}
+\expItem{Ranorex UI testing implemention for windows applications.}
+\expItem{Implemented Agentic DevOps leveraging GitHub for source code and ADO for existing boards and pipelines.}
+\expItemListEnd
+\expProjectHeading{\titleItem{Senior Consultant} $|$ \emph{Contino (Cognizant Servian) - BHP}}{Mar 2022 -- Nov 2023}
+\expItemListStart
+\expItem{Led internal Squad 0 improvements and best practice adoption.}
+\expItem{Directed 7-engineer team delivering platform and customer enhancements.}
+\expItem{Planned and delivered Azure Landing Zone using CAF Terraform modules.}
+\expItem{Executed license migration project saving \textasciitilde{}\$130K.}
+\expItem{Automated large-scale GitLab SaaS repo migration with Python.}
+\expItemListEnd
+\expProjectHeading{\titleItem{Senior DevOps Engineer} $|$ \emph{Guild Group}}{Feb 2020 -- Mar 2022}
+\expItemListStart
+\expItem{Established DevOps processes and CI/CD automation with Terraform \& Azure DevOps.}
+\expItem{Automated Guidewire environment provisioning and DR infrastructure.}
+\expItem{Implemented observability with Datadog + App Insights; integrated alerting.}
+\expItem{Drove infrastructure automation for production and DR workloads.}
+\expItem{Built dashboards and agile workflows (Azure Boards \& JIRA).}
+\expItemListEnd
+\expProjectHeading{\titleItem{Azure Developer} $|$ \emph{Guild Group}}{Aug 2018 -- Feb 2020}
+\expItemListStart
+\expItem{Developed and maintained SuperSuper microservices (Functions, App Services, Service Bus, Storage, Cosmos DB, B2C).}
+\expItem{Implemented cost optimization and security hardening across subscriptions.}
+\expItem{Created admin tooling (ASP.NET MVC) and automation with Logic Apps/Teams.}
+\expItemListEnd
 % END_EXPERIENCE
 \resumeSubHeadingListEnd
+\SectionContentGap
 
 % -------------------------------------
 % EARLIER ROLES
 % -------------------------------------
-\section{Earlier Roles}
-\resumeSubHeadingListStart
+\ResumeSection{Earlier Roles}\vspace{-4pt}
+\begin{itemize}[leftmargin=0.15in, label={}]
 % BEGIN_EARLIER_ROLES
-\resumeProjectHeading{\titleItem{Wells Fargo (2012--2018)}}{}
-\resumeItemListStart
-\resumeItem{Senior Technology Specialist}
-\resumeItem{Technology Specialist}
-\resumeItem{Senior Analyst}
-\resumeItemListEnd
-\resumeProjectHeading{\titleItem{Wipro Limited (2010--2012)}}{}
-\resumeItemListStart
-\resumeItem{Software Engineer}
-\resumeItem{Engineer Trainee}
-\resumeItemListEnd
+\item{\titleItem{Wells Fargo (2012--2018)}{: Senior Technology Specialist; Technology Specialist; Senior Analyst} \\[-2pt]
+        \titleItem{Wipro Limited (2010--2012)}{: Software Engineer; Engineer Trainee}}
 % END_EARLIER_ROLES
-\resumeSubHeadingListEnd
+\end{itemize}
+\SectionContentGap
 
 % -------------------------------------
 % EDUCATION
 % -------------------------------------
-\section{Education}
+\ResumeSection{Education}\vspace{-4pt}
 \resumeSubHeadingListStart
 % BEGIN_EDUCATION
 \resumeProjectHeading{\titleItem{Birla Institute of Applied Sciences | B.Tech Computer Science \& Engineering (Honours) | 2006--2010}}{}

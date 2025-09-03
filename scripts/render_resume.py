@@ -140,8 +140,10 @@ def build_blocks(parsed: dict) -> dict:
 
     # Skills mapping
     def join_list(key):
-        vals = parsed['skills'].get(key, [])
-        return ', '.join(escape_latex(v) for v in vals)
+            vals = parsed['skills'].get(key, [])
+            if not vals:
+                return ''
+            return ', '.join(escape_latex(v) for v in vals)
 
     blocks['SKILLS_LANGUAGES'] = join_list('LANGUAGES')
     blocks['SKILLS_FRAMEWORKS'] = join_list('FRAMEWORKS')
@@ -155,24 +157,31 @@ def build_blocks(parsed: dict) -> dict:
         title = escape_latex(role['title'])
         company = escape_latex(role['company'])
         date_range = escape_latex(f"{role['start']} -- {role['end']}".strip())
-        exp_lines.append(f"\\resumeProjectHeading{{\\titleItem{{{title}}} $|$ \\emph{{{company}}}}}{{{date_range}}}")
+        # Use compact experience-specific macros
+        exp_lines.append(f"\\expProjectHeading{{\\titleItem{{{title}}} $|$ \\emph{{{company}}}}}{{{date_range}}}")
         if role['bullets']:
-            exp_lines.append('\\resumeItemListStart')
+            exp_lines.append('\\expItemListStart')
             for b in role['bullets']:
-                exp_lines.append(f"\\resumeItem{{{escape_latex(b)}}}")
-            exp_lines.append('\\resumeItemListEnd')
+                exp_lines.append(f"\\expItem{{{escape_latex(b)}}}")
+            exp_lines.append('\\expItemListEnd')
     blocks['EXPERIENCE_BLOCK'] = '\n'.join(exp_lines) if exp_lines else '% No experience roles parsed'
 
-    # Earlier roles block (compact two-column friendly: company header + roles inline)
-    er_items = []
-    for employer in parsed['earlier_roles']:
-        header = f"{employer['company']} ({employer['years']})" if employer['years'] else employer['company']
-        roles_inline = '; '.join(employer['titles']) if employer['titles'] else ''
-        content_parts = [f"\\titleItem{{{escape_latex(header)}}}"]
-        if roles_inline:
-            content_parts.append(f"{escape_latex(roles_inline)}")
-        er_items.append(f"\\item {{ {' \\newline '.join(content_parts)} }}")
-    blocks['EARLIER_ROLES_BLOCK'] = '\n'.join(er_items) if er_items else '% No earlier roles'
+    # Earlier roles block (single compact multi-line item like Technical Skills)
+    if parsed['earlier_roles']:
+        line_parts = []
+        for employer in parsed['earlier_roles']:
+            header = f"{employer['company']} ({employer['years']})" if employer['years'] else employer['company']
+            roles_inline = '; '.join(employer['titles']) if employer['titles'] else ''
+            if roles_inline:
+                line_parts.append(f"\\titleItem{{{escape_latex(header)}}}{{: {escape_latex(roles_inline)}}}")
+            else:
+                line_parts.append(f"\\titleItem{{{escape_latex(header)}}}")
+        # Join with line breaks; wrap in a single \item
+        # Use a LaTeX line break with a small negative vertical space
+        earlier_roles_compact = " \\\\[-2pt]\n        ".join(line_parts)
+        blocks['EARLIER_ROLES_BLOCK'] = f"\\item{{{earlier_roles_compact}}}"
+    else:
+        blocks['EARLIER_ROLES_BLOCK'] = '% No earlier roles'
 
     # Education block
     edu_lines = []

@@ -41,23 +41,29 @@
 \sethlcolor{lightyellow}
 
 %--------------- Custom commands & typography -----------------------
+% Compact spacing ONLY used in Experience via these macros
+% Experience-specific compact list macros (to keep other sections unaffected)
+\newcommand{\expItem}[1]{\item{{#1 \vspace{-4pt}}}}
+\newcommand{\expItemListStart}{\begin{itemize}}
+\newcommand{\expItemListEnd}{\end{itemize}\vspace{-4pt}}
+\newcommand{\expProjectHeading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}#1 & \textit{ #2} \\ \end{tabular*}\vspace{-6pt}}
 \newcommand{\sectionspace}{\vspace{-20pt}}
 \newcommand{\subheadingtitlevspace}{\vspace{-3pt}}
-\newcommand{\resumeItem}[1]{\item{{#1 \vspace{-4pt}}}}
+\newcommand{\resumeItem}[1]{\item{{#1 \vspace{-4pt}}}} % bullet tightness
 \newcommand{\titleItem}[1]{\textbf{#1}}
 \newcommand{\highlight}[1]{\textsl{\textbf{#1}}}
-\newcommand{\resumeSubheading}[4]{\item\begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}l@{}l}{#1} & \titleItem{#3} | {#2} & \textit{#4}\\\end{tabular*}\vspace{-10pt}}
+\newcommand{\resumeSubheading}[4]{\item\begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}l@{}l}{#1} & \titleItem{#3} | {#2} & \textit{#4}\\\end{tabular*}\vspace{-8pt}}
 \newcommand{\resumeSubSubheading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}\textit{#1} & \textit{#2} \\\end{tabular*}\vspace{-2pt}}
-\newcommand{\resumeProjectHeading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}#1 & \textit{ #2} \\\end{tabular*}\vspace{-9pt}}
+\newcommand{\resumeProjectHeading}[2]{\item\begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}#1 & \textit{ #2} \\\end{tabular*}\vspace{-6pt}}
 \newcommand{\resumeSubHeadingListStart}{\subheadingtitlevspace\begin{itemize}[leftmargin=0.15in, label={}]}
 \newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
 \newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-8pt}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-4pt}}
 
 % Name & Section styling macros (consistent typography)
 \newcommand{\ResumeName}[1]{\textbf{\fontsize{18pt}{20pt}\selectfont #1}}
 % Section heading macro
-\newcommand{\ResumeSection}[1]{\vspace{4pt}\par{\fontsize{11pt}{13pt}\selectfont \MakeUppercase{#1}}\vspace{1pt}\hrule height 0.6pt}
+\newcommand{\ResumeSection}[1]{\par{\fontsize{11pt}{13pt}\selectfont \MakeUppercase{#1}}\vspace{1pt}\hrule height 0.6pt}
 % Unified gap after each section content (tweak here for global spacing)
 % No extra gap after section content (can be re-enabled if needed)
 \newcommand{\SectionContentGap}{}
@@ -85,7 +91,7 @@
 % PROFESSIONAL SUMMARY
 % -------------------------------------
 \ResumeSection{Professional Summary}
-\vspace{-3pt}
+\vspace{-4pt}
 \begin{itemize}[leftmargin=0.15in, label={}]
     % BEGIN_PROFESSIONAL_SUMMARY
     {{PROFESSIONAL_SUMMARY}}
@@ -96,10 +102,10 @@
 % -------------------------------------
 % CERTIFICATIONS
 % -------------------------------------
-\ResumeSection{Certifications}
+\ResumeSection{Certifications}\vspace{-8pt}
 % Two-column compact list
 \begin{multicols}{2}
-\begin{itemize}[leftmargin=0.1in, itemsep=1pt, parsep=0pt, topsep=0pt]
+\begin{itemize}[leftmargin=0.1in, itemsep=0pt, parsep=0pt, topsep=0pt]
 % BEGIN_CERTIFICATIONS
 {{CERTIFICATIONS_BLOCK}}
 % END_CERTIFICATIONS
@@ -110,7 +116,7 @@
 % -------------------------------------
 % TECHNICAL SKILLS
 % -------------------------------------
-\ResumeSection{Technical Skills}
+\ResumeSection{Technical Skills}\vspace{-4pt}
 \subheadingtitlevspace
 \begin{itemize}[leftmargin=0.15in, label={}]
   \item{\titleItem{Languages}{: {{SKILLS_LANGUAGES}}} \\
@@ -124,7 +130,7 @@
 % -------------------------------------
 % EXPERIENCE
 % -------------------------------------
-\ResumeSection{Experience}
+\ResumeSection{Experience}\vspace{-4pt}
 \resumeSubHeadingListStart
 % BEGIN_EXPERIENCE
 {{EXPERIENCE_BLOCK}}
@@ -135,21 +141,18 @@
 % -------------------------------------
 % EARLIER ROLES
 % -------------------------------------
-\ResumeSection{Earlier Roles}
-% Two-column compact list for earlier roles
-\begin{multicols}{2}
-\begin{itemize}[leftmargin=0.1in, itemsep=2pt, parsep=0pt, topsep=0pt]
+\ResumeSection{Earlier Roles}\vspace{-4pt}
+\begin{itemize}[leftmargin=0.15in, label={}]
 % BEGIN_EARLIER_ROLES
 {{EARLIER_ROLES_BLOCK}}
 % END_EARLIER_ROLES
 \end{itemize}
-\end{multicols}
 \SectionContentGap
 
 % -------------------------------------
 % EDUCATION
 % -------------------------------------
-\ResumeSection{Education}
+\ResumeSection{Education}\vspace{-4pt}
 \resumeSubHeadingListStart
 % BEGIN_EDUCATION
 {{EDUCATION_BLOCK}}
