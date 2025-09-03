@@ -43,7 +43,7 @@ This ensures consistency and eliminates "works on my machine" issues.
 After confirming the prerequisite, prompt the LLM as follow:
  
 You are an AI agent tasked with automating and enhancing resume processing. Please follow these steps:
-- Read and understand the contents of the instructions.md file in the root directory.
+- Read and understand the contents of the prompt.md file in the root directory.
 - Based on the instructions, create a taskmaster.md file in the root directory. This file should list all required tasks for the workflow, each with a status field (e.g., New, InProgress, Complete).
 - For every query or operation you perform, always keep the context of both instructions.md and taskmaster.md in memory. Refer to these files before taking any action.
 - As you start, progress, or complete any task, update the status of that task in taskmaster.md accordingly.
